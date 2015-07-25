@@ -18,6 +18,14 @@ class MicropostsController < ApplicationController
     redirect_to root_url
   end
 
+  def upvote
+    micropost = Micropost.find(params[:id])
+    micropost.votes = micropost.votes.to_i + 1
+    micropost.save
+
+    redirect_to user_path(micropost.user)
+  end
+
   private
 
     def micropost_params
