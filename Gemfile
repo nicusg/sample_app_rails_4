@@ -14,6 +14,7 @@ group :development, :test do
   # The following optional lines are part of the advanced setup.
   gem 'spork-rails', '4.0.0'
   gem 'childprocess', '0.3.6'
+  gem 'pry'
 end
 
 group :test do

@@ -1,5 +1,7 @@
 class Micropost < ActiveRecord::Base
   belongs_to :user
+  has_many :votes, foreign_key: 'micropost_id', dependent: :destroy
+  has_many :voted_by_users, through: :votes, source: :micropost
   default_scope -> { order('created_at DESC') }
   validates :content, presence: true, length: { maximum: 140 }
   validates :user_id, presence: true

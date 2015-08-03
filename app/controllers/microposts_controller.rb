@@ -24,8 +24,7 @@ class MicropostsController < ApplicationController
 
   def upvote
     micropost = Micropost.find(params[:id])
-    micropost.votes = micropost.votes.to_i + 1
-    micropost.save
+    current_user.vote!(micropost)
 
     redirect_to user_path(micropost.user)
   end
