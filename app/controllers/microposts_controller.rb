@@ -13,9 +13,20 @@ class MicropostsController < ApplicationController
     end
   end
 
+  def show
+    @micropost = Micropost.find(params[:id])
+  end
+
   def destroy
     @micropost.destroy
     redirect_to root_url
+  end
+
+  def upvote
+    micropost = Micropost.find(params[:id])
+    current_user.vote!(micropost)
+
+    redirect_to user_path(micropost.user)
   end
 
   private

@@ -194,4 +194,8 @@ describe User do
       it { expect(@user.followed_users).to_not include(other_user)}
     end
   end
+
+  describe 'vote!' do
+
+  end
 end

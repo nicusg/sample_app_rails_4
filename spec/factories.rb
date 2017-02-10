@@ -14,4 +14,9 @@ FactoryGirl.define do
     content 'Lorem ipsum'
     user
   end
+
+  factory :vote do
+    association :user
+    association :micropost
+  end
 end

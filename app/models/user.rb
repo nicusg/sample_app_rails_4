@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
                                    class_name: 'Relationship',
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
+  has_many :votes, foreign_key: 'user_id', dependent: :destroy
+  has_many :voted_microposts, through: :votes, source: :user
   before_save { self.email = email.downcase }
   before_create :create_remember_token
   validates :name, presence: true, length: { maximum: 50 }
@@ -37,6 +39,13 @@ class User < ActiveRecord::Base
 
   def unfollow!(other_user)
     relationships.find_by(followed_id: other_user.id).destroy
+  end
+
+  def vote!(micropost)
+    vote = Vote.new(micropost_id: micropost.id, user_id: self.id)
+    if vote.valid?
+      vote.save
+    end
   end
 
   private
